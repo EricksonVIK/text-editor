@@ -3,7 +3,12 @@ import Editor from './editor';
 import './database';
 import '../css/index.css';
 import Logo from "../images/logo.png";
-import Favicon from "../../favicon.ico"
+import Favicon from "../../favicon.ico";
+
+// import bootstrap after npm install bootstrap && @popperjs/core
+import { Tooltip, Toast, Popover } from "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 const main = document.querySelector('#main');
 main.innerHTML = '';
@@ -34,7 +39,7 @@ if ('serviceWorker' in navigator) {
   console.error('Service workers are not supported in this browser.');
 }
 
-window.addEventListener("load", function () {
-  document.getElementById('logo').src = Logo;
-  document.getElementById('favicon').src = Favicon;
-})
+// window.addEventListener("load", function () {
+//   document.getElementById('logo').src = Logo;
+//   document.getElementById('favicon').src = Favicon;
+// })
