@@ -16,7 +16,7 @@ export const initdb = async () =>
     },
   });
 
-// Put function to add to indexedDB
+// Put function to add to indexedDB 
 export const putDb = async (content) => {
   console.log("Add to database");
   // create a connection
@@ -25,19 +25,19 @@ export const putDb = async (content) => {
   const tx = jateDB.transaction("jate", "readwrite");
   // open up object store
   const store = tx.objectStore('jate');
-  // use add()
-  const request = store.add(content);
+  // use put() vs add() for post
+  const requestUpdate = store.add(content);
   // confirmation of addition
-  const result = await request;
+  const result = await requestUpdate;
   console.log("Content added to database", result);
 }
 
 // Get function from indexedDB
 export const getDb = async () => {
   console.log("GET from the jate database");
-// create connection to database
+  // create connection to database
   const jateDB = await openDB("jate", 1);
-    // create new transaction with privileges
+  // create new transaction with privileges
   const tx = jateDB.transaction("jate", "readonly");
   // open up desired object storage
   const store = tx.objectStore("jate");
