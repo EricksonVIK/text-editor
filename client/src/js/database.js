@@ -1,12 +1,16 @@
 import { openDB } from 'idb';
+import 'regenerator-runtime/runtime';
 
-const initdb = async () =>
+export const initdb = async () =>
+  // creating a new database "jate" version 1
   openDB('jate', 1, {
+    // add database schema
     upgrade(db) {
       if (db.objectStoreNames.contains('jate')) {
         console.log('jate database already exists');
         return;
       }
+      // create new object store for data and give it id
       db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
       console.log('jate database created');
     },
