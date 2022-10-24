@@ -16,6 +16,7 @@ butInstall.addEventListener('click', async () => {
     } else {
         promptEvent.prompt()
         const result = await promptEvent.userChoice
+        console.log(result)
         window.deferredPrompt = null
         butInstall.textContent = "Installed!!!"
         butInstall.setAttribute("disabled", true)
