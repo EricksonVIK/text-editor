@@ -1,36 +1,37 @@
-import { openDB } from 'idb';
-import 'regenerator-runtime/runtime';
+import { openDB } from "idb";
+import "regenerator-runtime/runtime";
 
 export const initdb = async () =>
   // creating a new database "jate" version 1
-  openDB('jate', 1, {
+  openDB("jate", 1, {
     // add database schema
     upgrade(db) {
-      if (db.objectStoreNames.contains('jate')) {
-        console.log('jate database already exists');
+      if (db.objectStoreNames.contains("jate")) {
+        console.log("jate database already exists");
         return;
       }
       // create new object store for data and give it id
-      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
-      console.log('jate database created');
+      db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
+      console.log("jate database created");
     },
   });
 
-// Put function to add to indexedDB 
+// Put function to add to indexedDB
 export const putDb = async (content) => {
   console.log("Add to database");
+  console.log(content);
   // create a connection
-  const jateDB = await openDB('jate', 1);
+  const jateDB = await openDB("jate", 1);
   // creat new transaction
   const tx = jateDB.transaction("jate", "readwrite");
   // open up object store
-  const store = tx.objectStore('jate');
+  const store = tx.objectStore("jate");
   // use put() vs add() for post
   const requestUpdate = store.add(content);
   // confirmation of addition
   const result = await requestUpdate;
   console.log("Content added to database", result);
-}
+};
 
 // Get function from indexedDB
 export const getDb = async () => {
@@ -47,5 +48,5 @@ export const getDb = async () => {
   const result = await request;
   console.log("result.value", result);
   return result;
-}
+};
 initdb();
