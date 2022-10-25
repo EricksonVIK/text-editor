@@ -1,52 +1,35 @@
-import { openDB } from "idb";
-import "regenerator-runtime/runtime";
+import { openDB } from 'idb';
 
-export const initdb = async () =>
-  // creating a new database "jate" version 1
-  openDB("jate", 1, {
-    // add database schema
+const initdb = async () =>
+  openDB('jate', 1, {
     upgrade(db) {
-      if (db.objectStoreNames.contains("jate")) {
-        console.log("jate database already exists");
+      if (db.objectStoreNames.contains('jate')) {
+        console.log('jate database already exists');
         return;
       }
-      // create new object store for data and give it id
-      db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
-      console.log("jate database created");
+      db.createObjectStore('jate', { keyPath: 'id', autoIncrement: true });
+      console.log('jate database created');
     },
   });
 
-// Put function to add to indexedDB
-export const putDb = async (content) => {
-  console.log("Add to database");
-  console.log(content);
-  // create a connection
-  const jateDB = await openDB("jate", 1);
-  // creat new transaction
-  const tx = jateDB.transaction("jate", "readwrite");
-  // open up object store
-  const store = tx.objectStore("jate");
-  // use put() vs add() for post
-  const requestUpdate = store.add(content);
-  // confirmation of addition
-  const result = await requestUpdate;
-  console.log("Content added to database", result);
+// TODO: Add logic to a method that accepts some content and adds it to the database
+export const putDb = async (content) =>  {
+	const jateDB = await openDB('jate', 1);
+	const tx = jateDB.transaction('jate', 'readwrite');
+	const store = tx.objectStore('jate');
+	const request = store.put({ id: 1, value: content });
+	const result = await request;
+	console.log(result);
+} ;
+
+// TODO: Add logic for a method that gets all the content from the database
+export const getDb = async (e) => {
+	const jateDb = await openDB('jate', 1);
+	const tx = jateDb.transaction('jate', 'readwrite');
+	const store = tx.objectStore('jate');
+	const request = store.get(1);
+	const result = await request;
+	return result?.value;
 };
 
-// Get function from indexedDB
-export const getDb = async () => {
-  console.log("GET from the jate database");
-  // create connection to database
-  const jateDB = await openDB("jate", 1);
-  // create new transaction with privileges
-  const tx = jateDB.transaction("jate", "readonly");
-  // open up desired object storage
-  const store = tx.objectStore("jate");
-  // use getAll()
-  const request = store.getAll();
-  // get confirmation of the request
-  const result = await request;
-  console.log("result.value", result);
-  return result;
-};
 initdb();

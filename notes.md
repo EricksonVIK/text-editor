@@ -8,4 +8,6 @@
     at main.bundle.js:1260:37
     at main.bundle.js:1262:12 -->
 
-<!-- Images and favicon transfer but do not post -->
+<!-- 2 indexedDB files created?!? -->
+<!-- not pulling from local storage -->
+<!-- manifest line 1 syntax error -->

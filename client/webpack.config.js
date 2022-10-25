@@ -1,57 +1,54 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackPwaManifest = require('webpack-pwa-manifest')
-const path = require('path')
-const { InjectManifest, GenerateSW } = require('workbox-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const path = require("path");
+const { InjectManifest } = require("workbox-webpack-plugin");
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file.
 // TODO: Add CSS loaders and babel to webpack.
 
 module.exports = () => {
   return {
-    mode: 'development',
+    mode: "development",
     entry: {
-      main: './src/js/index.js',
-      install: './src/js/install.js'
+      main: "./src/js/index.js",
+      install: "./src/js/install.js",
     },
     output: {
-      filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist'),
+      filename: "[name].bundle.js",
+      path: path.resolve(__dirname, "dist"),
     },
     plugins: [
-			new HtmlWebpackPlugin({
-				title: 'JATE',
-				favicon: './src/images/logo.png',
-				template: './index.html',
-				publicPath: '/',
-			}),
-			new InjectManifest({
-				swSrc: '/src-sw.js',
-				swDest: 'src-sw.js',
-			}),
-			new WebpackPwaManifest({
-				name: 'Just Another Text Editor',
-				short_name: 'JATE',
-				description:
-					'A text editor that also uses a service worker to work on and offline',
-				background_color: '#225ca3',
-				theme_color: '#225ca3',
-				fingerprints: false,
-				includeDirectory: true,
-				icons: [
-					{
-						src: path.resolve('src/images/logo.png'),
-						sizes: [96, 128, 256],
-						destination: path.join('assets', 'icons'),
-					},
-				],
-			}),
-		],
+      new HtmlWebpackPlugin({
+        template: "./index.html",
+        favicon: "./src/images/logo.png",
+      }),
+      new WebpackPwaManifest({
+        name: "JATE",
+        short_name: "JATE",
+        description: "Just Another Text Editor",
+        display: "standalone",
+        background_color: "#1e1e1e",
+        theme_color: "#1e1e1e",
+        start_url: "/",
+        publicPath: "/",
+        fingerprints: false,
+        inject: true,
+        icons: [
+          {
+            src: path.resolve("src/images/logo.png"),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join("assets", "icons"),
+          },
+        ],
+      }),
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
+      }),
+    ],
+
     module: {
       rules: [
-        {
-          test: /\.(png|svg|jpg|gif|ico)$/i,
-          type: 'asset/resource',
-        },
         {
           test: /\.css$/i,
           use: ["style-loader", "css-loader"],
@@ -62,12 +59,14 @@ module.exports = () => {
           use: {
             loader: "babel-loader",
             options: {
-              presets: [
-                ["@babel/preset-env", {targets: "defaults"}]
-              ]
-            }
-          }
-        }
+              presets: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
+            },
+          },
+        },
       ],
     },
   };
