@@ -18,6 +18,7 @@ A Progressive Web App (PWA) that incorporates indexedDB to save and display data
 ## Deployed App
 
 ## Usage
+Afte cloning the repo, run `npm install` to fund packages.  Start the application by running `npm start`<br> Open your local browser and install the application via `Install!` button.
 
 ## Screenshot
 
@@ -25,8 +26,6 @@ A Progressive Web App (PWA) that incorporates indexedDB to save and display data
 ![](screenshots/JATE%20Service%20Workder%20screenshot.png)
 ![](screenshots/JATE%20IndexedDB%20screenshot.png)
 ![](screenshots/JATE%20Manifest%20screenshot.png)
-
-## Usage
 
 ## Contact
 
