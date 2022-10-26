@@ -1,9 +1,8 @@
 {
-  "name": "jate",
-  "private": "true",
+  "name": "JATE",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack --mode development",
+    "build": "webpack --mode production",
     "start": "webpack",
     "heroku-prebuild": "npm install --dev"
   },
